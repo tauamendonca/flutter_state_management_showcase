@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_todolist/app/components/filter_list_component.dart';
+import 'package:project_todolist/app/components/task_list_component.dart';
 import 'package:project_todolist/app/widgets/header_widget.dart';
-import 'package:project_todolist/app/widgets/task_card_widget.dart';
 
 import '../widgets/home_app_bar_widget.dart';
 
@@ -29,34 +29,16 @@ class HomePage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const HeaderWidget(),
+            HeaderWidget(
+              onAddTap: () {},
+              title: 'Tarefas de Hoje',
+              subtitle:
+                  '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+            ),
             const SizedBox(height: 20),
             const FilterListComponent(),
             const SizedBox(height: 20),
-            TaskCardWidget(
-              isDone: true,
-              title: 'Title',
-              description: 'Description',
-              initialDate: DateTime.now(),
-              endDate: DateTime.now(),
-              onTap: () {},
-            ),
-            TaskCardWidget(
-              isDone: false,
-              title: 'Title 2',
-              description: 'Description 2',
-              initialDate: DateTime.now(),
-              endDate: DateTime.now(),
-              onTap: () {},
-            ),
-            TaskCardWidget(
-              isDone: false,
-              title: 'Title 3',
-              description: 'Description 3',
-              initialDate: DateTime.now(),
-              endDate: DateTime.now(),
-              onTap: () {},
-            ),
+            const Expanded(child: TaskListComponent()),
           ],
         ),
       ),

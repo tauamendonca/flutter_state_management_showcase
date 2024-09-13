@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class HeaderWidget extends StatelessWidget {
-  const HeaderWidget({super.key});
+  const HeaderWidget(
+      {super.key,
+      required this.title,
+      required this.subtitle,
+      required this.onAddTap});
+
+  final String title;
+  final String subtitle;
+  final VoidCallback onAddTap;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +22,7 @@ class HeaderWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Tarefas de Hoje',
+              title,
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -23,13 +31,13 @@ class HeaderWidget extends StatelessWidget {
               height: 4,
             ),
             Text(
-              'Data',
+              subtitle,
               style: theme.textTheme.titleSmall,
             ),
           ],
         ),
         ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: onAddTap,
           label: const Text('Nova tarefa'),
           icon: const Icon(Icons.add),
           style: theme.elevatedButtonTheme.style,
