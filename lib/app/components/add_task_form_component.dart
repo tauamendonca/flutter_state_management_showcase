@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_todolist/app/controllers/form_controller.dart';
-import 'package:project_todolist/app/core/shared/utils/app_pickers.dart';
-import '../widgets/text_field_widget.dart';
+import 'package:project_todolist/app/core/controllers/form_controller.dart';
+import 'package:project_todolist/app/core/utils/app_pickers.dart';
+import '../core/widgets/text_field_widget.dart';
 
 class AddTaskForm extends StatelessWidget {
   const AddTaskForm({

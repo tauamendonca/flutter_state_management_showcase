@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_todolist/app/core/shared/utils/app_formaters.dart';
-import 'package:project_todolist/app/widgets/task_done_widget.dart';
+import 'package:project_todolist/app/core/utils/app_formaters.dart';
+import 'package:project_todolist/app/core/widgets/task_done_widget.dart';
 
 class TaskCardWidget extends StatelessWidget {
   const TaskCardWidget({

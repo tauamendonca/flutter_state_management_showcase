@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/filter_item_widget.dart';
+import '../core/widgets/filter_item_widget.dart';
 
 class FilterListComponent extends StatelessWidget {
   const FilterListComponent({super.key});

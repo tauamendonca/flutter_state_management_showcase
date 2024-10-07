@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project_todolist/app/controllers/form_controller.dart';
+import 'package:project_todolist/app/core/controllers/form_controller.dart';
 import '../../../components/add_task_form_component.dart';
 
-class AddTaskPage extends StatelessWidget {
-  const AddTaskPage({super.key});
+class AddTaskPageVn extends StatelessWidget {
+  const AddTaskPageVn({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,29 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:project_todolist/app/components/filter_list_component.dart';
 import 'package:project_todolist/app/components/task_list_component.dart';
-import 'package:project_todolist/app/core/shared/utils/app_formaters.dart';
-import 'package:project_todolist/app/modules/value_notifier/pages/add_task_page_vn.dart';
-import 'package:project_todolist/app/widgets/header_widget.dart';
+import 'package:project_todolist/app/core/utils/app_formaters.dart';
+import 'package:project_todolist/app/core/widgets/header_widget.dart';
 
-import '../../../widgets/home_app_bar_widget.dart';
+import '../../../core/widgets/home_app_bar_widget.dart';
 
-class TaskPage extends StatefulWidget {
-  const TaskPage({super.key});
+class TaskPageVn extends StatefulWidget {
+  const TaskPageVn({super.key});
 
   @override
-  State<TaskPage> createState() => _HomePageState();
+  State<TaskPageVn> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<TaskPage> {
+class _HomePageState extends State<TaskPageVn> {
   void navigateToForm() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return const AddTaskPage();
-        },
-      ),
-    );
+    Modular.to.pushNamed('add');
   }
+
+  // Exemple Native Navigation
+  // void navigateToForm() {
+  //   Navigator.of(context).push(
+  //     MaterialPageRoute(
+  //       builder: (_) {
+  //         return const AddTaskPageVn();
+  //       },
+  //     ),
+  //   );
+  // }
 
   String get headerTitle {
     final dayMessage = AppFormaters.dayMessage(DateTime.now());

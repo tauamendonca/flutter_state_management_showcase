@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/task_card_widget.dart';
+import '../core/widgets/task_card_widget.dart';
 
 class TaskListComponent extends StatelessWidget {
   const TaskListComponent({super.key});
