@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class HeaderWidget extends StatelessWidget {
-  const HeaderWidget(
-      {super.key,
-      required this.title,
-      required this.subtitle,
-      required this.onAddTap});
+  const HeaderWidget({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.onAddTap,
+  });
 
   final String title;
   final String subtitle;

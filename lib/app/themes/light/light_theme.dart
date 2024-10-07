@@ -5,11 +5,14 @@ import 'package:project_todolist/app/themes/light/light_colors.dart';
 class LightTheme {
   static final theme = ThemeData(
       appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         titleTextStyle: TextStyle(
           color: LightColors.appBarBlack,
           fontSize: 20,
         ),
       ),
+      iconTheme: const IconThemeData(color: Colors.black),
       textTheme: const TextTheme(
         titleSmall: TextStyle(
           color: LightColors.gray,

@@ -15,8 +15,10 @@ class TaskListComponent extends StatelessWidget {
           isDone: index.isEven,
           title: 'Title $index',
           description: 'Description $index',
-          initialDate: DateTime.now(),
-          endDate: DateTime.now(),
+          initialDate: index == 2
+              ? DateTime.now().subtract(const Duration(days: 1))
+              : DateTime.now().add(Duration(days: index)),
+          endDate: DateTime.now().add(Duration(minutes: index * 3)),
           onTap: () {},
         );
       },
