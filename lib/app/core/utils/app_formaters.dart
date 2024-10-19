@@ -5,7 +5,7 @@ class AppFormaters {
   static String formatHourFromTime(TimeOfDay time) {
     final date = DateTime.now().copyWith(hour: time.hour, minute: time.minute);
 
-    final formattedTime = DateFormat('H:m', 'pt_BR').format(date);
+    final formattedTime = DateFormat('H:mm', 'pt_BR').format(date);
 
     return formattedTime;
   }
@@ -13,13 +13,13 @@ class AppFormaters {
   static String formatTime(TimeOfDay time) {
     final hours = DateTime.now().copyWith(hour: time.hour, minute: time.minute);
 
-    final formattedTime = DateFormat('H:m', 'pt_BR').format(hours);
+    final formattedTime = DateFormat('H:mm', 'pt_BR').format(hours);
 
     return formattedTime;
   }
 
   static String formatDate(DateTime date) {
-    final formattedDate = DateFormat('H:m', 'pt_BR').format(date);
+    final formattedDate = DateFormat('H:mm', 'pt_BR').format(date);
 
     return formattedDate;
   }

@@ -3,45 +3,37 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:project_todolist/app/components/filter_list_component.dart';
 import 'package:project_todolist/app/components/task_list_component.dart';
 import 'package:project_todolist/app/core/utils/app_formaters.dart';
+import 'package:project_todolist/app/core/utils/string_extension.dart';
 import 'package:project_todolist/app/core/widgets/header_widget.dart';
-
+import 'package:project_todolist/app/modules/value_notifier/store/date_vn_store.dart';
 import '../../../core/widgets/home_app_bar_widget.dart';
 
 class TaskPageVn extends StatefulWidget {
-  const TaskPageVn({super.key});
+  const TaskPageVn({super.key, required this.dateVnStore});
+
+  final DateVnStore dateVnStore;
 
   @override
-  State<TaskPageVn> createState() => _HomePageState();
+  State<TaskPageVn> createState() => _TaskPageVnState();
 }
 
-class _HomePageState extends State<TaskPageVn> {
+class _TaskPageVnState extends State<TaskPageVn> {
+  DateVnStore get dateStore => widget.dateVnStore;
+
   void navigateToForm() {
     Modular.to.pushNamed('add');
   }
 
-  // Exemple Native Navigation
-  // void navigateToForm() {
-  //   Navigator.of(context).push(
-  //     MaterialPageRoute(
-  //       builder: (_) {
-  //         return const AddTaskPageVn();
-  //       },
-  //     ),
-  //   );
-  // }
-
   String get headerTitle {
-    final dayMessage = AppFormaters.dayMessage(DateTime.now());
+    final dayMessage = AppFormaters.dayMessage(dateStore.value);
 
-    if (dayMessage != null) {
-      return 'Tarefas de $dayMessage';
-    }
+    if (dayMessage != null) return 'Tarefas de $dayMessage';
 
     return 'Tarefas';
   }
 
   String get headerSubtitle {
-    return AppFormaters.fullDate(DateTime.now());
+    return AppFormaters.fullDate(dateStore.value);
   }
 
   @override
@@ -50,13 +42,19 @@ class _HomePageState extends State<TaskPageVn> {
 
     return Scaffold(
       appBar: HomeAppBarWidget(
-        title: Text(
-          'Hoje',
-          style: theme.appBarTheme.titleTextStyle,
+        onTitleTap: dateStore.changeDate,
+        onNextTap: dateStore.nextDate,
+        //dateStore.nextDate,
+        onPreviousTap: dateStore.previousDate,
+        title: ValueListenableBuilder(
+          valueListenable: dateStore,
+          builder: (_, date, __) {
+            return Text(
+              AppFormaters.fullDate(date).capitalize(),
+              style: theme.appBarTheme.titleTextStyle,
+            );
+          },
         ),
-        onTitleTap: (date) {},
-        onNextTap: () {},
-        onPreviousTap: () {},
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -65,11 +63,15 @@ class _HomePageState extends State<TaskPageVn> {
         ),
         child: Column(
           children: [
-            HeaderWidget(
-              onAddTap: navigateToForm,
-              title: headerTitle,
-              subtitle: headerSubtitle,
-            ),
+            ValueListenableBuilder(
+                valueListenable: dateStore,
+                builder: (_, date, __) {
+                  return HeaderWidget(
+                    onAddTap: navigateToForm,
+                    title: headerTitle,
+                    subtitle: headerSubtitle,
+                  );
+                }),
             const SizedBox(height: 20),
             const FilterListComponent(),
             const SizedBox(height: 20),
@@ -80,3 +82,14 @@ class _HomePageState extends State<TaskPageVn> {
     );
   }
 }
+
+  // >> Native Navigation (if/when I remove Modular) <<
+  // void navigateToForm() {
+  //   Navigator.of(context).push(
+  //     MaterialPageRoute(
+  //       builder: (_) {
+  //         return const AddTaskPageVn();
+  //       },
+  //     ),
+  //   );
+  // }
