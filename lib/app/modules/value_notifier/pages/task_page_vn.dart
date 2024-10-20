@@ -6,12 +6,18 @@ import 'package:project_todolist/app/core/utils/app_formaters.dart';
 import 'package:project_todolist/app/core/utils/string_extension.dart';
 import 'package:project_todolist/app/core/widgets/header_widget.dart';
 import 'package:project_todolist/app/modules/value_notifier/store/date_vn_store.dart';
+import 'package:project_todolist/app/modules/value_notifier/store/tasks_vn_store.dart';
 import '../../../core/widgets/home_app_bar_widget.dart';
 
 class TaskPageVn extends StatefulWidget {
-  const TaskPageVn({super.key, required this.dateVnStore});
+  const TaskPageVn({
+    super.key,
+    required this.dateVnStore,
+    required this.tasksVnStore,
+  });
 
   final DateVnStore dateVnStore;
+  final TasksVnStore tasksVnStore;
 
   @override
   State<TaskPageVn> createState() => _TaskPageVnState();
@@ -19,10 +25,7 @@ class TaskPageVn extends StatefulWidget {
 
 class _TaskPageVnState extends State<TaskPageVn> {
   DateVnStore get dateStore => widget.dateVnStore;
-
-  void navigateToForm() {
-    Modular.to.pushNamed('add');
-  }
+  TasksVnStore get tasksStore => widget.tasksVnStore;
 
   String get headerTitle {
     final dayMessage = AppFormaters.dayMessage(dateStore.value);
@@ -37,6 +40,29 @@ class _TaskPageVnState extends State<TaskPageVn> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    tasksStore.getTasks(dateStore.value);
+    dateStore.addListener(reloadTasksOnDateChange);
+  }
+
+  void reloadTasksOnDateChange() {
+    tasksStore.getTasks(dateStore.value);
+  }
+
+  void navigateToForm() {
+    Modular.to.pushNamed('add');
+  }
+
+  @override
+  void dispose() {
+    dateStore.removeListener(reloadTasksOnDateChange);
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
@@ -44,7 +70,6 @@ class _TaskPageVnState extends State<TaskPageVn> {
       appBar: HomeAppBarWidget(
         onTitleTap: dateStore.changeDate,
         onNextTap: dateStore.nextDate,
-        //dateStore.nextDate,
         onPreviousTap: dateStore.previousDate,
         title: ValueListenableBuilder(
           valueListenable: dateStore,
@@ -75,7 +100,10 @@ class _TaskPageVnState extends State<TaskPageVn> {
             const SizedBox(height: 20),
             const FilterListComponent(),
             const SizedBox(height: 20),
-            const Expanded(child: TaskListComponent()),
+            Expanded(
+                child: TaskListComponent(
+              tasksVnStore: tasksStore,
+            )),
           ],
         ),
       ),

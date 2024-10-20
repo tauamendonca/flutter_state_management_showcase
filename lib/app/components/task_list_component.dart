@@ -1,27 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:project_todolist/app/modules/value_notifier/store/tasks_vn_store.dart';
 
 import '../core/widgets/task_card_widget.dart';
 
 class TaskListComponent extends StatelessWidget {
-  const TaskListComponent({super.key});
+  const TaskListComponent({
+    super.key,
+    required this.tasksVnStore,
+  });
+
+  final TasksVnStore tasksVnStore;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: 30,
-      separatorBuilder: (_, index) => const SizedBox(height: 8),
-      itemBuilder: (_, index) {
-        return TaskCardWidget(
-          isDone: index.isEven,
-          title: 'Title $index',
-          description: 'Description $index',
-          initialDate: index == 2
-              ? DateTime.now().subtract(const Duration(days: 1))
-              : DateTime.now().add(Duration(days: index)),
-          endDate: DateTime.now().add(Duration(minutes: index * 3)),
-          onTap: () {},
-        );
-      },
-    );
+    return ValueListenableBuilder(
+        valueListenable: tasksVnStore,
+        builder: (_, tasks, __) {
+          return ListView.separated(
+            itemCount: tasks.length,
+            separatorBuilder: (_, index) => const SizedBox(height: 8),
+            itemBuilder: (_, index) {
+              final task = tasks.elementAt(index);
+              return TaskCardWidget(
+                isDone: task.isDone,
+                title: task.title,
+                description: task.description,
+                initialDate: task.initialDate,
+                endDate: task.endDate,
+                onTap: () {},
+              );
+            },
+          );
+        });
   }
 }
