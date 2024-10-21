@@ -1,8 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:project_todolist/app/modules/value_notifier/pages/add_task_page_vn.dart';
 import 'package:project_todolist/app/modules/value_notifier/pages/task_page_vn.dart';
-import 'package:project_todolist/app/modules/value_notifier/store/date_vn_store.dart';
-import 'package:project_todolist/app/modules/value_notifier/store/tasks_vn_store.dart';
+import 'package:project_todolist/app/modules/value_notifier/stores/date_vn_store.dart';
+import 'package:project_todolist/app/modules/value_notifier/stores/tasks_vn_store.dart';
 
 class ValueNotifierModule extends Module {
   @override

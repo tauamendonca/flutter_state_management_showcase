@@ -25,11 +25,11 @@ class AppFormaters {
   }
 
   static String? dayMessage(DateTime date) {
-    final handledValue = _resetHour(date);
-    final today = _resetHour(DateTime.now());
-    final tomorrow = _resetHour(DateTime.now().add(const Duration(days: 1)));
+    final handledValue = resetHour(date);
+    final today = resetHour(DateTime.now());
+    final tomorrow = resetHour(DateTime.now().add(const Duration(days: 1)));
     final yesterday =
-        _resetHour(DateTime.now().subtract(const Duration(days: 1)));
+        resetHour(DateTime.now().subtract(const Duration(days: 1)));
 
     if (handledValue.isAtSameMomentAs(today)) {
       return 'Hoje';
@@ -52,7 +52,7 @@ class AppFormaters {
   static String fullDate(DateTime date) =>
       DateFormat("EEEE, d 'de' MMMM", 'pt_BR').format(date).toString();
 
-  static DateTime _resetHour(DateTime date) {
+  static DateTime resetHour(DateTime date) {
     return date.copyWith(
       hour: 0,
       minute: 0,

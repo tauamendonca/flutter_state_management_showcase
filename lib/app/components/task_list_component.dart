@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_todolist/app/modules/value_notifier/store/tasks_vn_store.dart';
+import 'package:project_todolist/app/modules/value_notifier/stores/tasks_vn_store.dart';
 
 import '../core/widgets/task_card_widget.dart';
 
@@ -17,10 +17,10 @@ class TaskListComponent extends StatelessWidget {
         valueListenable: tasksVnStore,
         builder: (_, tasks, __) {
           return ListView.separated(
-            itemCount: tasks.length,
+            itemCount: tasks.shownTasks.length,
             separatorBuilder: (_, index) => const SizedBox(height: 8),
             itemBuilder: (_, index) {
-              final task = tasks.elementAt(index);
+              final task = tasks.shownTasks.elementAt(index);
               return TaskCardWidget(
                 isDone: task.isDone,
                 title: task.title,

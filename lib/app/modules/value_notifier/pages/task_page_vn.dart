@@ -5,8 +5,8 @@ import 'package:project_todolist/app/components/task_list_component.dart';
 import 'package:project_todolist/app/core/utils/app_formaters.dart';
 import 'package:project_todolist/app/core/utils/string_extension.dart';
 import 'package:project_todolist/app/core/widgets/header_widget.dart';
-import 'package:project_todolist/app/modules/value_notifier/store/date_vn_store.dart';
-import 'package:project_todolist/app/modules/value_notifier/store/tasks_vn_store.dart';
+import 'package:project_todolist/app/modules/value_notifier/stores/date_vn_store.dart';
+import 'package:project_todolist/app/modules/value_notifier/stores/tasks_vn_store.dart';
 import '../../../core/widgets/home_app_bar_widget.dart';
 
 class TaskPageVn extends StatefulWidget {
@@ -48,7 +48,7 @@ class _TaskPageVnState extends State<TaskPageVn> {
   }
 
   void reloadTasksOnDateChange() {
-    tasksStore.getTasks(dateStore.value);
+    tasksStore.filterTasksByDate(dateStore.value);
   }
 
   void navigateToForm() {
