@@ -98,7 +98,9 @@ class _TaskPageVnState extends State<TaskPageVn> {
                   );
                 }),
             const SizedBox(height: 20),
-            const FilterListComponent(),
+            FilterListComponent(
+              tasksVnStore: tasksStore,
+            ),
             const SizedBox(height: 20),
             Expanded(
                 child: TaskListComponent(

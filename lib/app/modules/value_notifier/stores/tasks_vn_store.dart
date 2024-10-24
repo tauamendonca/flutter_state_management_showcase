@@ -13,7 +13,7 @@ class TasksVnStore extends ValueNotifier<TasksState> {
 
     final tasks = List.generate(50, (index) {
       final initialDate =
-          DateTime.now().add(Duration(days: random.nextInt(25)));
+          DateTime.now().add(Duration(days: random.nextInt(25) - 1));
       return TaskModel(
         id: index,
         title: 'Title $index',
@@ -25,7 +25,7 @@ class TasksVnStore extends ValueNotifier<TasksState> {
       );
     });
 
-    value = value.copyWith(allTasks: tasks);
+    value = value.copyWith(taskStatus: value.taskStatus, allTasks: tasks);
     filterTasksByDate(date);
   }
 
@@ -40,6 +40,28 @@ class TasksVnStore extends ValueNotifier<TasksState> {
     }).toList();
 
     value = value.copyWith(
-        currentDateTasks: newCurrentTasks, shownTasks: newCurrentTasks);
+        taskStatus: value.taskStatus,
+        currentDateTasks: newCurrentTasks,
+        filteredTasks: newCurrentTasks);
+  }
+
+  void filterTasksByStatus(TaskStatus status) {
+    final tasks = value.currentDateTasks;
+
+    final filteredTasks = tasks.where((e) {
+      return e.status == status;
+    }).toList();
+
+    value = value.copyWith(
+      taskStatus: status,
+      filteredTasks: filteredTasks,
+    );
+  }
+
+  void clearStatusFilter() {
+    value = value.copyWith(
+      taskStatus: null,
+      filteredTasks: value.currentDateTasks,
+    );
   }
 }

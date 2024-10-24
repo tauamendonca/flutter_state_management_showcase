@@ -20,6 +20,7 @@ class FilterItemWidget extends StatelessWidget {
     final colors = Theme.of(context).extension<ColorExtension>()!;
 
     return GestureDetector(
+      onTap: onTap,
       child: ColoredBox(
         color: Colors.transparent,
         child: Row(

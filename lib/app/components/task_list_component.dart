@@ -17,10 +17,10 @@ class TaskListComponent extends StatelessWidget {
         valueListenable: tasksVnStore,
         builder: (_, tasks, __) {
           return ListView.separated(
-            itemCount: tasks.shownTasks.length,
+            itemCount: tasks.filteredTasks.length,
             separatorBuilder: (_, index) => const SizedBox(height: 8),
             itemBuilder: (_, index) {
-              final task = tasks.shownTasks.elementAt(index);
+              final task = tasks.filteredTasks.elementAt(index);
               return TaskCardWidget(
                 isDone: task.isDone,
                 title: task.title,
